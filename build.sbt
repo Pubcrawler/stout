@@ -21,7 +21,8 @@ resolvers += Classpaths.typesafeReleases
 libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
-  "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
+  "org.scalactic" %% "scalactic" % "3.0.1",
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
   "ch.qos.logback" % "logback-classic" % "1.1.7" % "runtime",
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
