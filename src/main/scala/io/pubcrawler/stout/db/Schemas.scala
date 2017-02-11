@@ -5,78 +5,68 @@ import java.sql.Date
 import java.sql.Time
 
 
-class Stop(tag: Tag) extends Table[(Int, String, String, Float, Float)](tag, "STOP") {
-  def id = column[Int]("STOP_ID", O.PrimaryKey)
-  def title = column[String]("TITLE")
-  def address = column[String]("ADDRESS")
-  def lat = column[Float]("LAT")
-  def lng = column[Float]("LNG")
-  def * = (id, title, address, lat, lng)
+class Crawls(tag: Tag) extends Table[Crawl](tag, "crawl") {
+  def id = column[Int]("crawl_id", O.PrimaryKey, O.AutoInc)
+  def title = column[String]("title")
+  def ownerId = column[Int]("owner_id")
+  def dateTime = column[Time]("date_time")
+  def lat = column[Float]("lat")
+  def lng = column[Float]("lng")
+  def radius = column[Int]("radius")
+  def city = column[String]("city")
+  def description = column[String]("description")
+  def * = (id.?, title, ownerId, dateTime, lat, lng, radius, city, description) <> (Crawl.tupled, Crawl.unapply)
 }
 
-class Route(tag: Tag) extends Table[(Int, Int)](tag, "ROUTE") {
-  def id = column[Int]("ROUTE_ID", O.PrimaryKey)
-  def ownerId = column[Int]("OWNER_ID")
-  def * = (id, ownerId)
+class CrawlParticipants(tag: Tag) extends Table[CrawlParticipant](tag, "crawl_participants") {
+  def crawlId = column[Int]("crawl_id")
+  def userId = column[Int]("user_id")
+  def status = column[Status.Status]("status")
+  def * = (crawlId, userId, status) <> (CrawlParticipant.tupled, CrawlParticipant.unapply)
 }
 
-class RouteStop(tag: Tag, stops: TableQuery[Stop], routes: TableQuery[Route]) extends Table[(Int, Int, Int)](tag, "ROUTE_STOP") {
-  def routeId = column[Int]("ROUTE_STOP_ID")
-  def stopId = column[Int]("STOP_ID")
-  def order = column[Int]("ORDER")
-  def * = (routeId, stopId, order)
-
-  def stop = foreignKey("STOP_FK", stopId, stops)(_.id)
-  def route = foreignKey("ROUTE_FK", routeId, routes)(_.id)
+class Routes(tag: Tag) extends Table[Route](tag, "route") {
+  def id = column[Int]("route_id", O.PrimaryKey, O.AutoInc)
+  def ownerId = column[Int]("owner_id")
+  def * = (id.?, ownerId) <> (Route.tupled, Route.unapply)
 }
 
-class Crawl(tag: Tag, stops: TableQuery[Stop]) extends Table[(Int, String, Int, Time, Float, Float, Int, String, String)](tag, "CRAWL") {
-  def id = column[Int]("CRAWL_ID", O.PrimaryKey)
-  def title = column[String]("TITLE")
-  def ownerId = column[Int]("OWNER_ID")
-  def dateTime = column[Time]("DATE_TIME")
-  def lat = column[Float]("LAT")
-  def lng = column[Float]("LNG")
-  def radius = column[Int]("RADIUS")
-  def city = column[String]("CITY")
-  def description = column[String]("DESCRIPTION")
-  def * = (id, title, ownerId, dateTime, lat, lng, radius, city, description)
+class RouteStops(tag: Tag, stops: TableQuery[Stops], routes: TableQuery[Routes]) extends Table[RouteStop](tag, "route_stop") {
+  def routeId = column[Int]("route_stop_id")
+  def stopId = column[Int]("stop_id")
+  def order = column[Int]("order")
+  def * = (routeId, stopId, order) <> (RouteStop.tupled, RouteStop.unapply)
+
+  def stop = foreignKey("stop_fk", stopId, stops)(_.id)
+  def route = foreignKey("route_fk", routeId, routes)(_.id)
 }
 
-class CrawlParticipants(tag: Tag) extends Table[(Int, Int, Boolean)](tag, "CRAWL_PARTICIPANTS") {
-  def crawlId = column[Int]("CRAWL_ID")
-  def userId = column[Int]("USER_ID")
-  def status = column[Boolean]("STATUS")
-  def * = (crawlId, userId, status)
+class Stops(tag: Tag) extends Table[Stop](tag, "stop") {
+  def id = column[Int]("stop_id", O.PrimaryKey, O.AutoInc)
+  def title = column[String]("title")
+  def address = column[String]("address")
+  def lat = column[Float]("lat")
+  def lng = column[Float]("lng")
+  def * = (id.?, title, address, lat, lng) <> (Stop.tupled, Stop.unapply)
 }
 
-class User(tag: Tag, facebookUsers: TableQuery[Stop]) extends Table[(Int, String, Date, String, Int)](tag, "USER") {
-  def id = column[Int]("USER_ID")
-  def username = column[String]("USERNAME")
-  def birthdate = column[Date]("BIRTHDATE")
-  def gender = column[String]("GENDER")
-  def facebookUserId = column[Int]("FACEBOOK_ID")
-  def * = (id, username, birthdate, gender, facebookUserId)
+class Users(tag: Tag, facebookUsers: TableQuery[Stops]) extends Table[User](tag, "users") {
+  def id = column[Int]("user_id", O.PrimaryKey, O.AutoInc)
+  def username = column[String]("username")
+  def birthdate = column[Date]("birthdate")
+  def gender = column[Gender.Gender]("gender")
+  def facebookUserId = column[Int]("facebook_id")
+  def * = (id.?, username, birthdate, gender, facebookUserId) <> (User.tupled, User.unapply)
 
-  def facebookUser = foreignKey("FACEBOOK_USER_FK", facebookUserId, facebookUsers)(_.id)
+  def facebookUser = foreignKey("facebook_user_fk", facebookUserId, facebookUsers)(_.id)
 }
 
-class FacebookUser(tag: Tag) extends Table[(Int, String, Date, String, String, Int)](tag, "FACEBOOK_USER") {
-  def id = column[Int]("FACEBOOK_USER_ID", O.PrimaryKey)
-  def name = column[String]("NAME")
-  def birthdate = column[Date]("BIRTHDATE")
-  def location = column[String]("LOCATION")
-  def gender = column[String]("GENDER")
-  def facebookId = column[Int]("FACEBOOK_ID")
-  def * = (id, name, birthdate, location, gender, facebookId)
-}
+class Wishes(tag: Tag, stops: TableQuery[Stops], users: TableQuery[Users]) extends Table[Wish](tag, "wishes") {
+  def id = column[Int]("wish_id", O.PrimaryKey, O.AutoInc)
+  def userId = column[Int]("user_id")
+  def stopId = column[Int]("stop_id")
+  def * = (id.?, userId, stopId) <> (Wish.tupled, Wish.unapply)
 
-class Wishes(tag: Tag, stops: TableQuery[Stop], users: TableQuery[User]) extends Table[(Int, Int, Int)](tag, "WISHES") {
-  def id = column[Int]("WISHES", O.PrimaryKey)
-  def userId = column[Int]("USER_ID")
-  def stopId = column[Int]("STOP_ID")
-  def * = (id, userId, stopId)
-
-  def user = foreignKey("USER_FK", userId, users)(_.id)
-  def stop = foreignKey("STOP_FK", stopId, stops)(_.id)
+  def user = foreignKey("user_fk", userId, users)(_.id)
+  def stop = foreignKey("stop_fk", stopId, stops)(_.id)
 }
