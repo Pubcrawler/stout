@@ -24,8 +24,11 @@ libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.1",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test",
   "ch.qos.logback" % "logback-classic" % "1.1.7" % "runtime",
-  "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
+  "com.typesafe.slick" %% "slick" % "3.2.0-M2",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
+  "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
+  "org.slf4j" % "slf4j-simple" % "1.6.4",
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
 )
 
