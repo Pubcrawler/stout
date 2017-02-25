@@ -28,8 +28,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.2.0-M2",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
-  "org.slf4j" % "slf4j-simple" % "1.6.4",
-  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
+  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
+  "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container;compile"
 )
 
 // For debugging in IntelliJ IDEA

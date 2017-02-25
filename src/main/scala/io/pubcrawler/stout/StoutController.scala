@@ -7,7 +7,15 @@ import org.fusesource.scalate.layout.DefaultLayoutStrategy
 import javax.servlet.http.HttpServletRequest
 import collection.mutable
 
-trait StoutStack extends ScalatraServlet with ScalateSupport {
+class StoutController extends ScalatraServlet with ScalateSupport {
+
+  get("/") {
+    <html>
+      <body>
+        <h1>Hello, world!</h1>
+      </body>
+    </html>
+  }
 
   notFound {
     // remove content type in case it was set through an action

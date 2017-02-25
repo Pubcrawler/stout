@@ -43,3 +43,13 @@ looks like this):
 ```
 Now just select `Run` -> `Debug 'Scalatra Debug'`. Setting breakpoints and 
 stepping through code should work.
+
+## Building for deployment
+You can build a standalone jetty servlet for deployment by using `sbt-assembly` plugin like this:
+```
+$ sbt assembly
+```
+You can then run the server using:
+```
+$ java -jar target/scala-2.12/Stout-assembly-0.0.1-SNAPSHOT.jar
+```
