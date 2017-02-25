@@ -62,3 +62,10 @@ CREATE TABLE Wishes
   user_fk INT REFERENCES Users(user_id),
   stop_fk INT REFERENCES Stops(stop_id)
 );
+
+CREATE INDEX idx_routes_owner ON Routes(route_id);
+CREATE INDEX idx_crawl_owner ON Crawls(owner_id);
+CREATE INDEX idx_stop_title_lower ON Stops(lower(title));
+CREATE INDEX idx_user_username ON Users(username);
+CREATE INDEX idx_user_email ON Users(email);
+CREATE INDEX idx_wish_user_id ON Wishes(user_id);
