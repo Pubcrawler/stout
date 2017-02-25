@@ -20,6 +20,8 @@ $ ./sbt
 > jetty:start
 ```
 
+For live reloading, subtsitute `jetty:start` with `~;jetty:stop;jetty:start`.
+
 GraphQL API is then available on [http://localhost:8080/](http://localhost:8080/).
 
 ## Testing
