@@ -1,7 +1,6 @@
 package io.pubcrawler.stout.db
 
 import java.sql.{Date, Time}
-
 import slick.jdbc.PostgresProfile.api._
 
 
