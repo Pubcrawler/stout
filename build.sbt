@@ -29,7 +29,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
-  "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container;compile"
+  "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container;compile",
+  "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "compile;container"
 )
 
 // For debugging in IntelliJ IDEA
@@ -52,4 +53,4 @@ scalateTemplateConfig in Compile := {
   )
 }
 
-enablePlugins(JettyPlugin)
+enablePlugins(JettyPlugin, JavaAppPackaging)

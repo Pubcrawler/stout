@@ -1,0 +1,1 @@
+web: target/universal/stage/bin/stout -Dhttp.port=$PORT
