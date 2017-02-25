@@ -21,3 +21,9 @@ $ ./sbt
 ```
 
 GraphQL API is then available on [http://localhost:8080/](http://localhost:8080/).
+
+## Testing
+```sh
+$ ./sbt
+> test
+```
