@@ -29,7 +29,7 @@ class DatabaseSpec extends FlatSpec with Matchers with BeforeAndAfter with Datab
     val containerConfig = ContainerConfig.builder()
       .hostConfig(hostConfig)
       .image("postgres:9.6.2")
-      .env(List("POSTGRES_PASSWORD=pass").asJava)
+      .env(List("POSTGRES_USER=pbcrawl","POSTGRES_PASSWORD=pass").asJava)
       .exposedPorts("5432")
       .attachStdout(true)
       .attachStderr(true)
