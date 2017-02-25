@@ -50,15 +50,14 @@ class Stops(tag: Tag) extends Table[Stop](tag, "stop") {
   def * = (id.?, title, address, lat, lng) <> (Stop.tupled, Stop.unapply)
 }
 
-class Users(tag: Tag, facebookUsers: TableQuery[Stops]) extends Table[User](tag, "users") {
+class Users(tag: Tag) extends Table[User](tag, "users") {
   def id = column[Int]("user_id", O.PrimaryKey, O.AutoInc)
   def username = column[String]("username")
   def birthdate = column[Date]("birthdate")
   def gender = column[Gender.Gender]("gender")
+  def email = column[String]("email")
   def facebookUserId = column[Int]("facebook_id")
   def * = (id.?, username, birthdate, gender, facebookUserId) <> (User.tupled, User.unapply)
-
-  def facebookUser = foreignKey("facebook_user_fk", facebookUserId, facebookUsers)(_.id)
 }
 
 class Wishes(tag: Tag, stops: TableQuery[Stops], users: TableQuery[Users]) extends Table[Wish](tag, "wishes") {
