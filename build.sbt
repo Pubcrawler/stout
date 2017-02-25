@@ -32,6 +32,12 @@ libraryDependencies ++= Seq(
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
 )
 
+// For debugging in IntelliJ IDEA
+javaOptions ++= Seq(
+  "-Xdebug",
+  "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
+)
+
 scalateTemplateConfig in Compile := {
   val base = (sourceDirectory in Compile).value
   Seq(

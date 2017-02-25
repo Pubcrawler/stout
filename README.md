@@ -29,3 +29,17 @@ GraphQL API is then available on [http://localhost:8080/](http://localhost:8080/
 $ ./sbt
 > test
 ```
+
+## Debugging in IntelliJ IDEA
+Start SBT and the container as usual (`./sbt` then `jetty:start`).
+
+After that, go to `Run`-> `Edit configurations` in IntelliJ. Click the `+`
+button, select `Remote` to make a new remote debugging configuration, and
+call it Scalatra Debug. In IntelliJ 15, the default run conf should work (it
+looks like this):
+
+```
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+```
+Now just select `Run` -> `Debug 'Scalatra Debug'`. Setting breakpoints and 
+stepping through code should work.
