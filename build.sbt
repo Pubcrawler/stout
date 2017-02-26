@@ -6,6 +6,10 @@ val ScalatraVersion = "2.5.0"
 
 ScalatraPlugin.scalatraSettings
 
+flywayUrl := sys.env.getOrElse("DB_URL", default = "DB_URL_NOT_SPECIFIED")
+flywayUser := sys.env.getOrElse("DB_USER", default = "DB_USER_NOT_SPECIFIED")
+flywayPassword := sys.env.getOrElse("DB_PASS", default = "DB_PASS_NOT_SPECIFIED")
+
 scalateSettings
 
 organization := "io.pubcrawler"
@@ -17,13 +21,18 @@ version := "0.0.1-SNAPSHOT"
 scalaVersion := "2.12.1"
 
 resolvers += Classpaths.typesafeReleases
+resolvers += Resolver.jcenterRepo
 
 libraryDependencies ++= Seq(
+  "org.flywaydb" % "flyway-core" % "4.1.1",
+  "org.postgresql" % "postgresql" % "9.3-1100-jdbc4",
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
   "org.scalactic" %% "scalactic" % "3.0.1",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test",
-  "ch.qos.logback" % "logback-classic" % "1.1.7" % "runtime",
+  "ch.qos.logback" % "logback-classic" % "1.2.1" % "runtime",
+  "com.spotify" % "docker-client" % "8.0.0",
+  "com.typesafe" % "config" % "1.3.1",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
   "com.typesafe.slick" %% "slick" % "3.2.0-M2",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",

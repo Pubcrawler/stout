@@ -1,6 +1,5 @@
 package io.pubcrawler.stout
 
-import org.scalatra._
 
 class PubcrawlController extends StoutStack {
 
