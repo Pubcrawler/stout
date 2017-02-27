@@ -21,10 +21,11 @@ CREATE TABLE crawls
   owner_id INT REFERENCES users(user_id) NOT NULL,
   route_id INT REFERENCES routes(route_id) NOT NULL,
   date_time DATE NOT NULL,
-  lat FLOAT NOT NULL,
-  lng FLOAT NOT NULL,
-  radius INT NOT NULL,
+  address VARCHAR(100) NOT NULL,
   city VARCHAR(35) NOT NULL,
+  lat REAL NOT NULL,
+  lng REAL NOT NULL,
+  radius REAL NOT NULL,
   description VARCHAR(1000)
 );
 
@@ -40,8 +41,9 @@ CREATE TABLE stops
   stop_id SERIAL PRIMARY KEY,
   title VARCHAR(50) NOT NULL,
   address VARCHAR(100) NOT NULL,
-  lat FLOAT,
-  lng FLOAT
+  city VARCHAR(35) NOT NULL,
+  lat REAL,
+  lng REAL
 );
 
 CREATE TABLE route_stops

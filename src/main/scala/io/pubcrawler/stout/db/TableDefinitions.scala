@@ -34,12 +34,13 @@ trait TableDefinitions {
     def ownerId = column[Int]("owner_id")
     def routeId = column[Int]("route_id")
     def dateTime = column[Time]("date_time")
-    def lat = column[Float]("lat")
-    def lng = column[Float]("lng")
-    def radius = column[Int]("radius")
+    def address = column[String]("address")
     def city = column[String]("city")
+    def lat = column[Double]("lat")
+    def lng = column[Double]("lng")
+    def radius = column[Float]("radius")
     def description = column[String]("description")
-    def * = (id.?, title, ownerId, routeId, dateTime, lat, lng, radius, city, description) <> (Crawl.tupled, Crawl.unapply)
+    def * = (id.?, title, ownerId, routeId, dateTime, address, city, lat, lng, radius, description) <> (Crawl.tupled, Crawl.unapply)
 
     def owner = foreignKey("crawls_owner_id_fkey", ownerId, users)(_.id)
     def route = foreignKey("crawls_route_id_fkey", routeId, routes)(_.id)
@@ -63,9 +64,10 @@ trait TableDefinitions {
     def id = column[Int]("stop_id", O.PrimaryKey, O.AutoInc)
     def title = column[String]("title")
     def address = column[String]("address")
-    def lat = column[Float]("lat")
-    def lng = column[Float]("lng")
-    def * = (id.?, title, address, lat, lng) <> (Stop.tupled, Stop.unapply)
+    def city = column[String]("city")
+    def lat = column[Double]("lat")
+    def lng = column[Double]("lng")
+    def * = (id.?, title, address, city, lat, lng) <> (Stop.tupled, Stop.unapply)
   }
 
   val stops: TableQuery[Stops] = TableQuery[Stops]
