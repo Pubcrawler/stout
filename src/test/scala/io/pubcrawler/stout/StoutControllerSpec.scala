@@ -3,7 +3,7 @@ package io.pubcrawler.stout
 import org.scalatest.FlatSpec
 
 
-class PubcrawlControllerTest extends FlatSpec {
+class StoutControllerSpec extends FlatSpec {
   // TODO: Add tests
 
 }
