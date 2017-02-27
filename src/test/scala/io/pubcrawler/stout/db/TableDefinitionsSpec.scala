@@ -6,7 +6,7 @@ import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 import slick.dbio.DBIO
 
 import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 
 
@@ -17,7 +17,7 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
       users ++= userData
     )
     try {
-      Await.result(db.run(action), Duration.Inf)
+      Await.result(db.run(action), 1.second)
     }
   }
 
@@ -26,7 +26,7 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
       stops ++= stopData
     )
     try {
-      Await.result(db.run(action), Duration.Inf)
+      Await.result(db.run(action), 1.second)
     }
   }
 
