@@ -1,0 +1,10 @@
+version: 2
+executorType: docker
+containerInfo:
+  - image: 1science/sbt:latest
+
+stages:
+  build:
+    steps:
+      - type: shell
+        command: sbt test:test 

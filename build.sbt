@@ -37,8 +37,15 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.2.0-M2",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
-  "org.slf4j" % "slf4j-simple" % "1.6.4",
-  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
+  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
+  "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container;compile",
+  "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "compile;container"
+)
+
+// For debugging in IntelliJ IDEA
+javaOptions ++= Seq(
+  "-Xdebug",
+  "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
 )
 
 scalateTemplateConfig in Compile := {
@@ -55,4 +62,4 @@ scalateTemplateConfig in Compile := {
   )
 }
 
-enablePlugins(JettyPlugin)
+enablePlugins(JettyPlugin, JavaAppPackaging)
