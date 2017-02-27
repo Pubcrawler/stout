@@ -52,7 +52,6 @@ $ sbt assembly
 You can then run the server using:
 ```
 $ java -jar target/scala-2.12/Stout-assembly-0.0.1-SNAPSHOT.jar
->>>>>>> origin/master
 ```
 
 ## Development Setup
