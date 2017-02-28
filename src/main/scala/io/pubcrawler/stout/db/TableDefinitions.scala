@@ -11,7 +11,7 @@ trait TableDefinitions {
   class Users(tag: Tag) extends Table[User](tag, "users") {
     def id = column[Int]("user_id", O.PrimaryKey, O.AutoInc)
     def username = column[String]("username")
-    def birthdate = column[Date]("birthdate")
+    def birthdate = column[Option[Date]]("birthdate")
     def gender = column[Gender.Gender]("gender")
     def email = column[String]("email")
     def facebookId = column[Int]("facebook_id")
@@ -26,7 +26,7 @@ trait TableDefinitions {
     def * = (id.?, ownerId) <> (Route.tupled, Route.unapply)
   }
 
-  val routes: TableQuery[Routes] = TableQuery[Routes]
+  val _routes: TableQuery[Routes] = TableQuery[Routes]
 
   class Crawls(tag: Tag) extends Table[Crawl](tag, "crawls") {
     def id = column[Int]("crawl_id", O.PrimaryKey, O.AutoInc)
@@ -43,7 +43,7 @@ trait TableDefinitions {
     def * = (id.?, title, ownerId, routeId, dateTime, address, city, lat, lng, radius, description) <> (Crawl.tupled, Crawl.unapply)
 
     def owner = foreignKey("crawls_owner_id_fkey", ownerId, users)(_.id)
-    def route = foreignKey("crawls_route_id_fkey", routeId, routes)(_.id)
+    def route = foreignKey("crawls_route_id_fkey", routeId, _routes)(_.id)
   }
 
   val crawls: TableQuery[Crawls] = TableQuery[Crawls]
@@ -78,7 +78,7 @@ trait TableDefinitions {
     def order = column[Int]("order")
     def * = (routeId, stopId, order) <> (RouteStop.tupled, RouteStop.unapply)
 
-    def route = foreignKey("route_stops_route_id_fkey", routeId, routes)(_.id)
+    def route = foreignKey("route_stops_route_id_fkey", routeId, _routes)(_.id)
     def stop = foreignKey("route_stops_stop_id_fkey", stopId, stops)(_.id)
   }
 

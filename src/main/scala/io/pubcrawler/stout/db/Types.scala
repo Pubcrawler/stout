@@ -23,7 +23,7 @@ object Status extends Enumeration {
   implicit val statusMapper = MappedColumnType.base[Status.Status, String](e => e.toString, s => Status.withName(s))
 }
 
-case class User(id: Option[Int], username: String, birthdate: Date, gender: Gender.Gender, email: String, facebookUserId: Int)
+case class User(id: Option[Int], username: String, birthdate: Option[Date], gender: Gender.Gender, email: String, facebookUserId: Int)
 
 case class Route(id: Option[Int], ownerId: Int)
 

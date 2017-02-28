@@ -3,6 +3,8 @@ import org.scalatra.sbt.PluginKeys._
 import ScalateKeys._
 
 val ScalatraVersion = "2.5.0"
+val Json4sVersion = "3.5.0"
+val AkkaVersion = "2.4.17"
 
 ScalatraPlugin.scalatraSettings
 
@@ -28,10 +30,13 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "9.3-1100-jdbc4",
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
+  "org.scalatra" %% "scalatra-json" % ScalatraVersion,
+  "org.json4s"   %% "json4s-jackson" % Json4sVersion,
   "org.scalactic" %% "scalactic" % "3.0.1",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test",
   "ch.qos.logback" % "logback-classic" % "1.2.1" % "runtime",
   "com.spotify" % "docker-client" % "8.0.0",
+  "com.typesafe.akka" %% "akka-actor" % AkkaVersion,
   "com.typesafe" % "config" % "1.3.1",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
   "com.typesafe.slick" %% "slick" % "3.2.0-M2",
