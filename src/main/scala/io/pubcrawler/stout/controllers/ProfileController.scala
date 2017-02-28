@@ -12,6 +12,7 @@ import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.concurrent.duration._
 import scala.util.{Failure, Success}
+import io.pubcrawler.stout.models.Result
 
 
 class ProfileController(db: Database, system: ActorSystem) extends ScalatraServlet
@@ -47,16 +48,11 @@ class ProfileController(db: Database, system: ActorSystem) extends ScalatraServl
   get("/random") {
     val user = User(None,"Kari Nordmann", null, Gender.M, "kari@online.no", 7564)
     log("random")
-    user
+    Result(200, user)
   }
 
   notFound {
-    """
-      |{
-      |  status: 404
-      |  message: "not valid endpoint"
-      |}
-    """.stripMargin
+    Result(404, "not valid endpoint")
   }
 
 }
