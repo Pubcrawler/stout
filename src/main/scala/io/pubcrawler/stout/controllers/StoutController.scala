@@ -1,11 +1,7 @@
-package io.pubcrawler.stout
+package io.pubcrawler.stout.controllers
 
 import org.scalatra._
-import scalate.ScalateSupport
-import org.fusesource.scalate.{ TemplateEngine, Binding }
-import org.fusesource.scalate.layout.DefaultLayoutStrategy
-import javax.servlet.http.HttpServletRequest
-import collection.mutable
+import org.scalatra.scalate.ScalateSupport
 
 class StoutController extends ScalatraServlet with ScalateSupport {
 
