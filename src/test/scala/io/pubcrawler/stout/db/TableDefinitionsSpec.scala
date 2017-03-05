@@ -1,16 +1,19 @@
 package io.pubcrawler.stout.db
 
 
-import slick.jdbc.PostgresProfile.api._
+import io.pubcrawler.stout.util.JsonSupport
+import org.json4s.jackson.JsonMethods._
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 import slick.dbio.DBIO
+import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.io.Source
 
 
 
-class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnection with Matchers with BeforeAndAfter {
+class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnection with Matchers with JsonSupport with BeforeAndAfter {
 
   it should "add users" in {
     val action = DBIO.seq(
@@ -30,16 +33,68 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     }
   }
 
-  def userData: Seq[User] = Seq(
-    User(None,"Sue Birtwistle", null, Gender.F, "debby@aol.com", 1234),
-    User(None,"Felicity Gibson", null, Gender.F, "felicity@aol.com", 4321),
-    User(None,"Ola Nordmann", null, Gender.M, "ola@nordmann.no", 5432),
-    User(None,"Kari Nordmann", null, Gender.M, "kari@online.no", 7564)
-  )
+  it should "add routes" in {
+    val action = DBIO.seq(
+      _routes ++= routeData
+    )
+    try {
+      Await.result(db.run(action), 1.second)
+    }
+  }
 
-  def stopData: Seq[Stop] = Seq(
-    Stop(None,"Crowbar", "1 Hacker Way", "Menlo Park", 37.484116, -122.148244),
-    Stop(None, "Do Wine Bar", "50E, Amathoundos Ave., Limassol Pearl Building, 4532 Limassol", "Cyprus", 34.707718, 33.122013)
-  )
+  it should "add crawls" in {
+    val action = DBIO.seq(
+      crawls ++= crawlData
+    )
+    try {
+      Await.result(db.run(action), 1.second)
+    }
+  }
+
+  it should "add crawlparticipants" in {
+    val action = DBIO.seq(
+      crawlParticipants ++= crawlParticipantsData
+    )
+    try {
+      Await.result(db.run(action), 1.second)
+    }
+  }
+
+  it should "add routestops" in {
+    val action = DBIO.seq(
+      routeStops ++= routeStopData
+    )
+    try {
+      Await.result(db.run(action), 1.second)
+    }
+  }
+
+  it should "add wishes" in {
+    val action = DBIO.seq(
+      wishes ++= wishData
+    )
+    try {
+      Await.result(db.run(action), 1.second)
+    }
+  }
+
+  def userData: Seq[User] = createJsonFromResource[User]("data/users.json")
+
+  def stopData: Seq[Stop] = createJsonFromResource[Stop]("data/stops.json")
+
+  def routeData: Seq[Route] = createJsonFromResource[Route]("data/routes.json")
+
+  def crawlData: Seq[Crawl] = createJsonFromResource[Crawl]("data/crawls.json")
+
+  def crawlParticipantsData: Seq[CrawlParticipant] = createJsonFromResource[CrawlParticipant]("data/crawlparticipants.json")
+
+  def routeStopData: Seq[RouteStop] = createJsonFromResource[RouteStop]("data/routestops.json")
+
+  def wishData: Seq[Wish] = createJsonFromResource[Wish]("data/wishes.json")
+
+  def createJsonFromResource[T](resource: String)(implicit m: Manifest[T]): Seq[T] = {
+    val raw = Source.fromResource(resource).getLines().mkString
+    parse(raw).extract[Seq[T]]
+  }
 
 }
