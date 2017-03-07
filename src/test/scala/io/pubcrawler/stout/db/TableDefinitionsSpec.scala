@@ -1,8 +1,8 @@
 package io.pubcrawler.stout.db
 
 
-import io.pubcrawler.stout.util.JsonSupport
-import org.json4s.jackson.JsonMethods._
+import io.pubcrawler.stout.util.JsonFormat
+import org.json4s.jackson.JsonMethods.parse
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 import slick.dbio.DBIO
 import slick.jdbc.PostgresProfile.api._
@@ -13,7 +13,7 @@ import scala.io.Source
 
 
 
-class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnection with Matchers with JsonSupport with BeforeAndAfter {
+class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnection with Matchers with JsonFormat with BeforeAndAfter {
 
   it should "add users" in {
     val action = DBIO.seq(

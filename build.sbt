@@ -32,6 +32,7 @@ libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
   "org.scalatra" %% "scalatra-json" % ScalatraVersion,
   "org.json4s"   %% "json4s-jackson" % Json4sVersion,
+  "org.json4s"   %% "json4s-ext" % Json4sVersion,
   "org.scalactic" %% "scalactic" % "3.0.1",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test",
   "ch.qos.logback" % "logback-classic" % "1.2.1" % "runtime",
