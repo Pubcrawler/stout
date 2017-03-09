@@ -1,6 +1,6 @@
-import java.time.LocalDate
+import java.time.{LocalDate, LocalDateTime}
 
-import io.pubcrawler.stout.db.{Gender, Stop, User}
+import io.pubcrawler.stout.db.{Crawl, Gender, Stop, User}
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods.parse
 import org.json4s.jackson.Serialization
@@ -13,5 +13,10 @@ val b = Serialization.write(a)
 
 val c = User(Some(12), "jonski", Some(LocalDate.now()), Gender.M, "jonski@gmail.com", 123190)
 val d = Serialization.write(c)
+
+val crawl = Crawl(Some(12), "HelloWorld", 120, 12, LocalDateTime.now(), "Fredensborgveien 11B",
+  "Oslo", 123.128133, 123.120312, 0.5F, "Ipsum")
+
+Serialization.write(crawl)
 
 parse(json)
