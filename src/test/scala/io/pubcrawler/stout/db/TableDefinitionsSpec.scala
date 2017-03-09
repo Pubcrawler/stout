@@ -5,7 +5,7 @@ import io.pubcrawler.stout.util.JsonFormat
 import org.json4s.jackson.JsonMethods.parse
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 import slick.dbio.DBIO
-import slick.jdbc.PostgresProfile.api._
+import CustomPostgresDriver.api._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._

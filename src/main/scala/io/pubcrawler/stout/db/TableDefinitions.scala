@@ -1,7 +1,6 @@
 package io.pubcrawler.stout.db
 
-import slick.jdbc.PostgresProfile.api._
-import io.pubcrawler.stout.util.DateUtils.{optionalDateColumnType, dateTimeColumnType}
+import CustomPostgresDriver.api._
 import java.time.{LocalDate, LocalDateTime}
 
 import slick.lifted.TableQuery
@@ -11,7 +10,7 @@ trait TableDefinitions {
   class Users(tag: Tag) extends Table[User](tag, "users") {
     def id = column[Int]("user_id", O.PrimaryKey, O.AutoInc)
     def username = column[String]("username")
-    def birthdate = column[Option[LocalDate]]("birthdate")(optionalDateColumnType)
+    def birthdate = column[Option[LocalDate]]("birthdate")
     def gender = column[Gender.Gender]("gender")
     def email = column[String]("email")
     def facebookId = column[Int]("facebook_id")
@@ -33,7 +32,7 @@ trait TableDefinitions {
     def title = column[String]("title")
     def ownerId = column[Int]("owner_id")
     def routeId = column[Int]("route_id")
-    def dateTime = column[LocalDateTime]("date_time")(dateTimeColumnType)
+    def dateTime = column[LocalDateTime]("date_time")
     def address = column[String]("address")
     def city = column[String]("city")
     def lat = column[Double]("lat")

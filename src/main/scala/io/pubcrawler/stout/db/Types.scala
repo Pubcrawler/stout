@@ -2,7 +2,7 @@ package io.pubcrawler.stout.db
 
 import java.time.LocalDate
 import java.time.LocalDateTime
-import slick.jdbc.PostgresProfile.api._
+import CustomPostgresDriver.api._
 
 
 

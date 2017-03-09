@@ -5,6 +5,9 @@ import ScalateKeys._
 val ScalatraVersion = "2.5.0"
 val Json4sVersion = "3.5.0"
 val AkkaVersion = "2.4.17"
+val PostgresVersion = "42.0.0"
+val SlickVersion = "3.2.0"
+val ScalaTestVersion = "3.0.1"
 
 ScalatraPlugin.scalatraSettings
 
@@ -27,21 +30,21 @@ resolvers += Resolver.jcenterRepo
 
 libraryDependencies ++= Seq(
   "org.flywaydb" % "flyway-core" % "4.1.1",
-  "org.postgresql" % "postgresql" % "9.3-1100-jdbc4",
+  "org.postgresql" % "postgresql" % PostgresVersion,
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
   "org.scalatra" %% "scalatra-json" % ScalatraVersion,
   "org.json4s"   %% "json4s-jackson" % Json4sVersion,
   "org.json4s"   %% "json4s-ext" % Json4sVersion,
-  "org.scalactic" %% "scalactic" % "3.0.1",
-  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+  "org.scalactic" %% "scalactic" % ScalaTestVersion,
+  "org.scalatest" %% "scalatest" % ScalaTestVersion % "test",
   "ch.qos.logback" % "logback-classic" % "1.2.1" % "runtime",
-  "com.spotify" % "docker-client" % "8.0.0",
+  "com.github.tminglei" %% "slick-pg" % "0.15.0-RC",
   "com.typesafe.akka" %% "akka-actor" % AkkaVersion,
   "com.typesafe" % "config" % "1.3.1",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
-  "com.typesafe.slick" %% "slick" % "3.2.0-M2",
-  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
+  "com.typesafe.slick" %% "slick" % SlickVersion,
+  "com.typesafe.slick" %% "slick-hikaricp" % SlickVersion,
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
   "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container;compile",

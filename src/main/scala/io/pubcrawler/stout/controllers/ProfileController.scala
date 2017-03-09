@@ -17,7 +17,7 @@ import io.pubcrawler.stout.models.Result
 
 class ProfileController(db: Database, system: ActorSystem) extends ScalatraServlet
   with JacksonJsonSupport with FutureSupport with TableDefinitions {
-  protected implicit val timeout = new Timeout(2 seconds)
+  protected implicit val timeout = new Timeout(2.seconds)
   protected implicit val jsonFormats: Formats = DefaultFormats
   protected implicit def executor: ExecutionContext = system.dispatcher
 
