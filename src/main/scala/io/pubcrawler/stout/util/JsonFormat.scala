@@ -19,7 +19,7 @@ object EnumNameSerializers {
 }
 
 object JavaTimeSerializers {
-  // https://github.com/meetup/json4s-java-time/../JavaTimeSerializers.scala
+  // Borrowed from https://github.com/meetup/json4s-java-time/../JavaTimeSerializers.scala
 
   val defaults =
     LocalTimeSerializer :: LocalDateSerializer :: LocalDateTimeSerializer :: Nil
