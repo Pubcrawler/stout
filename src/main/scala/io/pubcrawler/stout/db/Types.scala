@@ -1,8 +1,6 @@
 package io.pubcrawler.stout.db
 
-import java.sql.{Date, Time}
-import slick.jdbc.PostgresProfile.api._
-
+import java.time.{LocalDate, LocalDateTime}
 
 
 object Gender extends Enumeration {
@@ -10,8 +8,6 @@ object Gender extends Enumeration {
   val M = Value("M") // Male
   val F = Value("F") // Female
   val O = Value("O") // Other
-
-  implicit val genderMapper = MappedColumnType.base[Gender.Gender, String](e => e.toString, s => Gender.withName(s))
 }
 
 object Status extends Enumeration {
@@ -19,15 +15,13 @@ object Status extends Enumeration {
   val A = Value('A') // Accepted
   val M = Value('M') // Maybe
   val D = Value('D') // Declined
-
-  implicit val statusMapper = MappedColumnType.base[Status.Status, String](e => e.toString, s => Status.withName(s))
 }
 
-case class User(id: Option[Int], username: String, birthdate: Date, gender: Gender.Gender, email: String, facebookUserId: Int)
+case class User(id: Option[Int], username: String, birthdate: Option[LocalDate], gender: Gender.Gender, email: String, facebookId: Int)
 
 case class Route(id: Option[Int], ownerId: Int)
 
-case class Crawl(id: Option[Int], title: String, ownerId: Int, routeId: Int, dateTime: Time, address: String, city: String, lat: Double, lng: Double, radius: Float, description: String)
+case class Crawl(id: Option[Int], title: String, ownerId: Int, routeId: Int, dateTime: LocalDateTime, address: String, city: String, lat: Double, lng: Double, radius: Float, description: String)
 
 case class CrawlParticipant(crawlId: Int, userId: Int, status: Status.Status)
 

@@ -1,12 +1,24 @@
-import io.pubcrawler.stout._
-import org.scalatra._
 import javax.servlet.ServletContext
 
+import akka.actor.ActorSystem
 import com.typesafe.scalalogging.LazyLogging
+import io.pubcrawler.stout.controllers.{CrawlController, ProfileController}
+import io.pubcrawler.stout.db.DbConnection
+import org.scalatra._
 
-class ScalatraBootstrap extends LifeCycle with LazyLogging {
+class ScalatraBootstrap extends LifeCycle with LazyLogging with DbConnection {
+  val system = ActorSystem()
+
   override def init(context: ServletContext) {
-    context mount(new StoutController, "/*")
+//    context mount(new StoutController, "/*")
+    context.mount(new ProfileController(db), "/profile/*")
+    context.mount(new CrawlController(db), "/crawl/*")
     logger info "Stout started"
+  }
+
+  override def destroy(context: ServletContext): Unit = {
+    super.destroy(context)
+    system.terminate()
+    db.close()
   }
 }

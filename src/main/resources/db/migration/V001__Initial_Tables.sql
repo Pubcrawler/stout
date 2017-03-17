@@ -20,7 +20,7 @@ CREATE TABLE crawls
   title VARCHAR(50) NOT NULL,
   owner_id INT REFERENCES users(user_id) NOT NULL,
   route_id INT REFERENCES routes(route_id) NOT NULL,
-  date_time DATE NOT NULL,
+  date_time TIMESTAMP NOT NULL,
   address VARCHAR(100) NOT NULL,
   city VARCHAR(35) NOT NULL,
   lat REAL NOT NULL,
