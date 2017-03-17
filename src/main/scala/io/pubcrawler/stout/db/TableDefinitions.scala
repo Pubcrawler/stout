@@ -1,13 +1,13 @@
 package io.pubcrawler.stout.db
 
-import CustomPostgresDriver.api._
 import java.time.{LocalDate, LocalDateTime}
 
+import slick.jdbc.PostgresProfile.api._
 import slick.lifted.TableQuery
 
-trait TableDefinitions {
+trait TableDefinitions extends TableMappers {
 
-  class Users(tag: Tag) extends Table[User](tag, "users") {
+  class UserTable(tag: Tag) extends Table[User](tag, "users") {
     def id = column[Int]("user_id", O.PrimaryKey, O.AutoInc)
     def username = column[String]("username")
     def birthdate = column[Option[LocalDate]]("birthdate")
@@ -17,17 +17,17 @@ trait TableDefinitions {
     def * = (id.?, username, birthdate, gender, email, facebookId) <> (User.tupled, User.unapply)
   }
 
-  val users: TableQuery[Users] = TableQuery[Users]
+  val users: TableQuery[UserTable] = TableQuery[UserTable]
 
-  class Routes(tag: Tag) extends Table[Route](tag, "routes") {
+  class RouteTable(tag: Tag) extends Table[Route](tag, "routes") {
     def id = column[Int]("route_id", O.PrimaryKey, O.AutoInc)
     def ownerId = column[Int]("owner_id")
     def * = (id.?, ownerId) <> (Route.tupled, Route.unapply)
   }
 
-  val _routes: TableQuery[Routes] = TableQuery[Routes]
+  val _routes: TableQuery[RouteTable] = TableQuery[RouteTable]
 
-  class Crawls(tag: Tag) extends Table[Crawl](tag, "crawls") {
+  class CrawlTable(tag: Tag) extends Table[Crawl](tag, "crawls") {
     def id = column[Int]("crawl_id", O.PrimaryKey, O.AutoInc)
     def title = column[String]("title")
     def ownerId = column[Int]("owner_id")
@@ -45,9 +45,9 @@ trait TableDefinitions {
     def route = foreignKey("crawls_route_id_fkey", routeId, _routes)(_.id)
   }
 
-  val crawls: TableQuery[Crawls] = TableQuery[Crawls]
+  val crawls: TableQuery[CrawlTable] = TableQuery[CrawlTable]
 
-  class CrawlParticipants(tag: Tag) extends Table[CrawlParticipant](tag, "crawl_participants") {
+  class CrawlParticipantTable(tag: Tag) extends Table[CrawlParticipant](tag, "crawl_participants") {
     def crawlId = column[Int]("crawl_id")
     def userId = column[Int]("user_id")
     def status = column[Status.Status]("status")
@@ -57,9 +57,9 @@ trait TableDefinitions {
     def user = foreignKey("crawl_participants_user_id_fkey", userId, users)(_.id)
   }
 
-  val crawlParticipants: TableQuery[CrawlParticipants] = TableQuery[CrawlParticipants]
+  val crawlParticipants: TableQuery[CrawlParticipantTable] = TableQuery[CrawlParticipantTable]
 
-  class Stops(tag: Tag) extends Table[Stop](tag, "stops") {
+  class StopTable(tag: Tag) extends Table[Stop](tag, "stops") {
     def id = column[Int]("stop_id", O.PrimaryKey, O.AutoInc)
     def title = column[String]("title")
     def address = column[String]("address")
@@ -69,9 +69,9 @@ trait TableDefinitions {
     def * = (id.?, title, address, city, lat, lng) <> (Stop.tupled, Stop.unapply)
   }
 
-  val stops: TableQuery[Stops] = TableQuery[Stops]
+  val stops: TableQuery[StopTable] = TableQuery[StopTable]
 
-  class RouteStops(tag: Tag) extends Table[RouteStop](tag, "route_stops") {
+  class RouteStopTable(tag: Tag) extends Table[RouteStop](tag, "route_stops") {
     def routeId = column[Int]("route_id")
     def stopId = column[Int]("stop_id")
     def order = column[Int]("order")
@@ -81,9 +81,9 @@ trait TableDefinitions {
     def stop = foreignKey("route_stops_stop_id_fkey", stopId, stops)(_.id)
   }
 
-  val routeStops: TableQuery[RouteStops] = TableQuery[RouteStops]
+  val routeStops: TableQuery[RouteStopTable] = TableQuery[RouteStopTable]
 
-  class Wishes(tag: Tag) extends Table[Wish](tag, "wishes") {
+  class WishTable(tag: Tag) extends Table[Wish](tag, "wishes") {
     def userId = column[Int]("user_id")
     def stopId = column[Int]("stop_id")
     def * = (userId, stopId) <> (Wish.tupled, Wish.unapply)
@@ -92,9 +92,5 @@ trait TableDefinitions {
     def user = foreignKey("wishes_user_id_fkey", userId, users)(_.id)
   }
 
-  val wishes: TableQuery[Wishes] = TableQuery[Wishes]
-
-
-  implicit val genderMapper = MappedColumnType.base[Gender.Gender, String](e => e.toString, s => Gender.withName(s))
-  implicit val statusMapper = MappedColumnType.base[Status.Status, String](e => e.toString, s => Status.withName(s))
+  val wishes: TableQuery[WishTable] = TableQuery[WishTable]
 }

@@ -1,9 +1,6 @@
 package io.pubcrawler.stout.db
 
-import java.time.LocalDate
-import java.time.LocalDateTime
-import CustomPostgresDriver.api._
-
+import java.time.{LocalDate, LocalDateTime}
 
 
 object Gender extends Enumeration {
@@ -11,8 +8,6 @@ object Gender extends Enumeration {
   val M = Value("M") // Male
   val F = Value("F") // Female
   val O = Value("O") // Other
-
-  implicit val genderMapper = MappedColumnType.base[Gender.Gender, String](e => e.toString, s => Gender.withName(s))
 }
 
 object Status extends Enumeration {
@@ -20,8 +15,6 @@ object Status extends Enumeration {
   val A = Value('A') // Accepted
   val M = Value('M') // Maybe
   val D = Value('D') // Declined
-
-  implicit val statusMapper = MappedColumnType.base[Status.Status, String](e => e.toString, s => Status.withName(s))
 }
 
 case class User(id: Option[Int], username: String, birthdate: Option[LocalDate], gender: Gender.Gender, email: String, facebookId: Int)

@@ -11,7 +11,7 @@ import org.json4s.{CustomSerializer, DefaultFormats, Formats}
 
 
 trait JsonFormat {
-  implicit lazy val formats: Formats = DefaultFormats ++ JavaTimeSerializers.defaults ++ EnumNameSerializers.defaults
+  implicit lazy val jsonFormats: Formats = DefaultFormats ++ JavaTimeSerializers.defaults ++ EnumNameSerializers.defaults
 }
 
 object EnumNameSerializers {
@@ -54,5 +54,5 @@ object JavaTimeSerializers {
 
   object LocalDateSerializer extends LocalDateSerializer(DateTimeFormatter.ISO_LOCAL_DATE)
 
-  object LocalDateTimeSerializer extends LocalDateTimeSerializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+  object LocalDateTimeSerializer extends LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'"))
 }
