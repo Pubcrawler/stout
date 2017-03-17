@@ -9,7 +9,7 @@ import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import scala.io.Source
+import scala.io.{Codec, Source}
 
 
 class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnection with Matchers with JsonFormat {
@@ -92,7 +92,7 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
   def wishData: Seq[Wish] = createJsonFromResource[Wish]("data/wishes.json")
 
   def createJsonFromResource[T](resource: String)(implicit m: Manifest[T]): Seq[T] = {
-    val raw = Source.fromResource(resource).getLines().mkString
+    val raw = Source.fromResource(resource)(Codec.UTF8).getLines().mkString
     parse(raw).extract[Seq[T]]
   }
 
