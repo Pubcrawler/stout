@@ -1,10 +1,44 @@
 version: 2
 executorType: docker
+
 containerInfo:
   - image: 1science/sbt:latest
+  - image: postgres:latest
+    env:
+      - POSTGRES_DB=circle_test
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD="password"
+      - POSTGRES_HOST="localhost"
+      - POSTGRES_PORT="5432"
 
 stages:
   build:
+    workDir: ~/stout
     steps:
       - type: shell
-        command: sbt test:test 
+        name: Installing dependencies
+        command: |
+          apk update &&
+          apk add git openssh
+
+      - checkout
+
+      - type: shell
+        name: Database migrations
+        command: sbt flywayClean flywayMigrate
+        environment:
+          POSTGRES_DB: "circle_test"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "password"
+          POSTGRES_HOST: "localhost"
+          POSTGRES_PORT: "5432"
+
+      - type: shell
+        name: Tests
+        command: sbt test:test
+        environment:
+          POSTGRES_DB: "circle_test"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "password"
+          POSTGRES_HOST: "localhost"
+          POSTGRES_PORT: "5432"
