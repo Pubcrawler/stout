@@ -38,6 +38,7 @@ libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
   "org.scalatra" %% "scalatra-json" % ScalatraVersion,
+  "org.scalatra" %% "scalatra-swagger" % "2.5.0",
   "org.json4s"   %% "json4s-jackson" % Json4sVersion,
   "org.json4s"   %% "json4s-ext" % Json4sVersion,
   "org.scalactic" %% "scalactic" % ScalaTestVersion,
