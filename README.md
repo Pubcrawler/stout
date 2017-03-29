@@ -12,6 +12,26 @@ $ brew install sbt
 
 For Windows, read the instructions on [http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Windows.html](http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Windows.html).
 
+## Database setup
+Stout requires a running PostgreSQL database. By default, Stout assumes that
+the server runs on `localhost:5432`, with a database named `stout`, a user
+`stout`, and a password `stout`  password. These connection parameters are set in 
+`application.conf`, and can be overridden by setting the following environment variables:
+
+- `POSTGRES_JDBC_URL`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+
+## Database migrations
+To migrate the database, run the following command in SBT:
+```
+> flywayMigrate
+```
+To clean old contents of the database, run:
+```
+> flywayClean
+```
+
 
 ## Build & Run ##
 

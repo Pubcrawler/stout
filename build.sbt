@@ -11,13 +11,9 @@ val ScalaTestVersion = "3.0.1"
 
 ScalatraPlugin.scalatraSettings
 
-val POSTGRES_DB = sys.env.getOrElse("POSTGRES_DB", default = "DB_PASS_NOT_SPECIFIED")
-val POSTGRES_PORT = sys.env.getOrElse("POSTGRES_PORT", default = "POSTGRES_PORT_NOT_SPECIFIED")
-val POSTGRES_HOST = sys.env.getOrElse("POSTGRES_HOST", default = "POSTGRES_HOST_NOT_SPECIFIED")
-
-flywayUser := sys.env.getOrElse("POSTGRES_USER", default = "DB_USER_NOT_SPECIFIED")
-flywayPassword := sys.env.getOrElse("POSTGRES_PASSWORD", default = "DB_PASS_NOT_SPECIFIED")
-flywayUrl := s"jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB"
+flywayUrl := sys.env.getOrElse("POSTGRES_JDBC_URL", default = "jdbc:postgresql://localhost:5432/stout")
+flywayUser := sys.env.getOrElse("POSTGRES_USER", default = "stout")
+flywayPassword := sys.env.getOrElse("POSTGRES_PASSWORD", default = "stout")
 
 scalateSettings
 
