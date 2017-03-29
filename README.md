@@ -22,6 +22,9 @@ the server runs on `localhost:5432`, with a database named `stout`, a user
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
 
+To set up a PostgreSQL server with the default settings, run the `bin/start-postgres.sh`
+script.
+
 ## Database migrations
 To migrate the database, run the following command in SBT:
 ```
