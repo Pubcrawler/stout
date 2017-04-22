@@ -11,9 +11,8 @@ val ScalaTestVersion = "3.0.1"
 
 ScalatraPlugin.scalatraSettings
 
-flywayUrl := sys.env.getOrElse("POSTGRES_JDBC_URL", default = "jdbc:postgresql://localhost:5432/stout")
-flywayUser := sys.env.getOrElse("POSTGRES_USER", default = "stout")
-flywayPassword := sys.env.getOrElse("POSTGRES_PASSWORD", default = "stout")
+flywayUrl := sys.env.getOrElse("JDBC_DATABASE_URL",
+  default = "jdbc:postgresql://localhost:5432/stout?user=stout&password=stout")
 
 scalateSettings
 

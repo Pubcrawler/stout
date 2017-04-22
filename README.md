@@ -16,11 +16,9 @@ For Windows, read the instructions on [http://www.scala-sbt.org/0.13/docs/Instal
 Stout requires a running PostgreSQL database. By default, Stout assumes that
 the server runs on `localhost:5432`, with a database named `stout`, a user
 `stout`, and a password `stout`  password. These connection parameters are set in 
-`application.conf`, and can be overridden by setting the following environment variables:
+`application.conf`, and can be overridden by setting the following environment variable:
 
-- `POSTGRES_JDBC_URL`
-- `POSTGRES_USER`
-- `POSTGRES_PASSWORD`
+- `DATABASE_JDBC_URL`
 
 To set up a PostgreSQL server with the default settings, run the `bin/start-postgres.sh`
 script.
