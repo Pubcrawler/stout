@@ -29,7 +29,7 @@ resolvers += Classpaths.typesafeReleases
 resolvers += Resolver.jcenterRepo
 
 libraryDependencies ++= Seq(
-  "org.flywaydb" % "flyway-core" % "4.1.1",
+  "org.flywaydb" % "flyway-core" % "4.1.2",
   "org.postgresql" % "postgresql" % PostgresVersion,
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
