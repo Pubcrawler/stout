@@ -5,9 +5,9 @@ containerInfo:
   - image: 1science/sbt:latest
   - image: postgres:latest
     env:
-      - POSTGRES_DB=circle_test
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD="password"
+      - POSTGRES_DB=stout
+      - POSTGRES_USER=stout
+      - POSTGRES_PASSWORD=stout
       - POSTGRES_HOST="localhost"
       - POSTGRES_PORT="5432"
 
@@ -26,19 +26,7 @@ stages:
       - type: shell
         name: Database migrations
         command: sbt flywayClean flywayMigrate
-        environment:
-          POSTGRES_DB: "circle_test"
-          POSTGRES_USER: "postgres"
-          POSTGRES_PASSWORD: "password"
-          POSTGRES_HOST: "localhost"
-          POSTGRES_PORT: "5432"
 
       - type: shell
         name: Tests
         command: sbt test:test
-        environment:
-          POSTGRES_DB: "circle_test"
-          POSTGRES_USER: "postgres"
-          POSTGRES_PASSWORD: "password"
-          POSTGRES_HOST: "localhost"
-          POSTGRES_PORT: "5432"
