@@ -46,7 +46,11 @@ libraryDependencies ++= Seq(
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
   "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container;compile",
-  "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "compile;container"
+  "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "compile;container",
+  "org.bouncycastle" % "bcpkix-jdk15on" % "1.56",
+  "com.pauldijou" %% "jwt-core" % "0.12.1",
+  "com.pauldijou" %% "jwt-json4s-jackson" % "0.12.1",
+  "org.mindrot" % "jbcrypt" % "0.3m"
 )
 
 // For debugging in IntelliJ IDEA
