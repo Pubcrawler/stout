@@ -8,6 +8,9 @@ CREATE TABLE users
   facebook_id INT NOT NULL
 );
 
+ALTER TABLE users
+  ADD CONSTRAINT ck_gender CHECK (gender IN ('F', 'M', 'O'));
+
 CREATE TABLE routes
 (
   route_id SERIAL PRIMARY KEY,
@@ -35,6 +38,9 @@ CREATE TABLE crawl_participants
   user_id INT REFERENCES users(user_id),
   status CHAR(1) NOT NULL
 );
+
+ALTER TABLE crawl_participants
+  ADD CONSTRAINT ck_status CHECK (status IN ('A', 'D', 'M'));
 
 CREATE TABLE stops
 (

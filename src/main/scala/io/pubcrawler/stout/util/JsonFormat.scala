@@ -4,19 +4,18 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.{TemporalAccessor, TemporalQuery}
 import java.time.{LocalDate, LocalDateTime, LocalTime}
 
-import io.pubcrawler.stout.db.{Gender, Status}
 import org.json4s.JsonAST.JString
-import org.json4s.ext.EnumNameSerializer
 import org.json4s.{CustomSerializer, DefaultFormats, Formats}
 
 
 trait JsonFormat {
-  implicit lazy val jsonFormats: Formats = DefaultFormats ++ JavaTimeSerializers.defaults ++ EnumNameSerializers.defaults
+  implicit lazy val jsonFormats: Formats = DefaultFormats ++ JavaTimeSerializers.defaults + CharSerializer
 }
 
-object EnumNameSerializers {
-  val defaults = new EnumNameSerializer(Gender) :: new EnumNameSerializer(Status) :: Nil
-}
+object CharSerializer extends CustomSerializer[Char](format => (
+  { case JString(x) if x.length == 1 => x.head },
+  { case x: Char => JString(x.toString) }
+))
 
 object JavaTimeSerializers {
   // Borrowed from https://github.com/meetup/json4s-java-time/../JavaTimeSerializers.scala
