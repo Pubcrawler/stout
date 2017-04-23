@@ -17,7 +17,7 @@ object Status extends Enumeration {
   val D = Value('D') // Declined
 }
 
-case class User(id: Option[Int], username: String, birthdate: Option[LocalDate], gender: Gender.Gender, email: String, facebookId: Int)
+case class User(id: Option[Int], username: String, password: String, birthdate: Option[LocalDate], gender: Gender.Gender, email: String, facebookId: Int)
 
 case class Route(id: Option[Int], ownerId: Int)
 
