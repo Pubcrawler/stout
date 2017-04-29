@@ -16,8 +16,12 @@ trait TableMappers {
     t => LocalDateTime.from(t.toLocalDateTime)
   )
 
-  implicit val localDateMapper = MappedColumnType.base[LocalDate, Date](
-    ld => Date.valueOf(ld),
-    d => LocalDate.from(d.toInstant)
+  implicit val localDateColumnType = MappedColumnType.base[LocalDate, Date](
+    {
+      localDate => Date.valueOf(localDate)
+    },{
+      sqlDate => sqlDate.toLocalDate
+    }
   )
+
 }

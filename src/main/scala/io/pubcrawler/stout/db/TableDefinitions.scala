@@ -10,11 +10,12 @@ trait TableDefinitions extends TableMappers {
   class UserTable(tag: Tag) extends Table[User](tag, "users") {
     def id = column[Int]("user_id", O.PrimaryKey, O.AutoInc)
     def username = column[String]("username")
+    def password = column[String]("password")
     def birthdate = column[Option[LocalDate]]("birthdate")
     def gender = column[Gender.Gender]("gender")
     def email = column[String]("email")
     def facebookId = column[Int]("facebook_id")
-    def * = (id.?, username, birthdate, gender, email, facebookId) <> (User.tupled, User.unapply)
+    def * = (id.?, username, password, birthdate, gender, email, facebookId) <> (User.tupled, User.unapply)
   }
 
   val users: TableQuery[UserTable] = TableQuery[UserTable]
