@@ -4,7 +4,7 @@ import akka.util.Timeout
 import io.pubcrawler.stout.db.{Gender, TableDefinitions, User}
 import io.pubcrawler.stout.models.Result
 import io.pubcrawler.stout.util.{JWTUtil, JsonFormat, UtilAsync}
-import org.scalatra.{FutureSupport, ScalatraServlet}
+import org.scalatra.{CorsSupport, FutureSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
 import slick.jdbc.JdbcBackend.Database
 import slick.jdbc.PostgresProfile.api._
@@ -18,8 +18,12 @@ case class Credentials (username: Option[String], password: Option[String])
 case class SignupCredentials(username: Option[String], email: Option[String], password: Option[String], passwordConfirmation: Option[String])
 
 class JWTController(db: Database) extends ScalatraServlet
-  with JacksonJsonSupport with FutureSupport with TableDefinitions with JsonFormat with UtilAsync with JWTUtil {
+  with JacksonJsonSupport with FutureSupport with TableDefinitions with JsonFormat with UtilAsync with CorsSupport with JWTUtil {
   protected implicit val timeout = new Timeout(2.seconds)
+
+  options("/*") {
+    response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"))
+  }
 
   before() {
     contentType = formats("json")
