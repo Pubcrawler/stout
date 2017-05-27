@@ -27,6 +27,10 @@ stages:
         command: source .circleci/setup-environment.sh
 
       - type: shell
+        name: Style check
+        command: sbt scalastyle
+
+      - type: shell
         name: Database migrations
         command: sbt flywayClean flywayMigrate
 
