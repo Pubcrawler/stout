@@ -47,6 +47,11 @@ For live reloading, subtsitute `jetty:start` with `~;jetty:stop;jetty:start`.
 
 GraphQL API is then available on [http://localhost:8080/](http://localhost:8080/).
 
+## API documentation
+We have generated swagger documentation for our API. The swagger documentation is availble at [http://localhost:8080/docs](http://localhost:8080/docs). Swagger-ui enables you to view the documentation as well as live testing. Head over to [https://github.com/swagger-api/swagger-ui/](https://github.com/swagger-api/swagger-ui/).
+
+It is to be noted that since we currently support v1.2 of the swagger specification, only swagger-ui of version v2.x is supported.
+
 ## Testing
 ```sh
 $ ./sbt
