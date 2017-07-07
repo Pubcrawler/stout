@@ -12,7 +12,7 @@ trait TableDefinitions extends TableMappers {
     def id = column[Int]("user_id", O.PrimaryKey, O.AutoInc)
     def username = column[String]("username")
     def birthdate = column[Option[LocalDate]]("birthdate")
-    def gender = column[Gender.Gender]("gender")
+    def gender = column[Char]("gender")
     def email = column[String]("email")
     def facebookId = column[Int]("facebook_id")
     def * = (id.?, username, birthdate, gender, email, facebookId) <> (User.tupled, User.unapply)
@@ -51,7 +51,7 @@ trait TableDefinitions extends TableMappers {
   class CrawlParticipantTable(tag: Tag) extends Table[CrawlParticipant](tag, "crawl_participants") {
     def crawlId = column[Int]("crawl_id")
     def userId = column[Int]("user_id")
-    def status = column[Status.Status]("status")
+    def status = column[Char]("status")
     def * = (crawlId, userId, status) <> (CrawlParticipant.tupled, CrawlParticipant.unapply)
 
     def crawl = foreignKey("crawl_participants_crawl_id_fkey", crawlId, crawls)(_.id)
