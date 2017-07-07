@@ -11,5 +11,5 @@ object StoutApiInfo extends ApiInfo(
   licenseUrl = "licenseUrl"
 )
 
-class StoutSwagger extends Swagger("2.0", "0.0.1", StoutApiInfo)
+class StoutSwagger extends Swagger(Swagger.SpecVersion, "0.0.1", StoutApiInfo)
 

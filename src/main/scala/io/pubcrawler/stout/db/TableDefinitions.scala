@@ -4,7 +4,8 @@ import java.time.{LocalDate, LocalDateTime}
 
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.TableQuery
-
+// scalastyle:off method.name
+// scalastyle:off public.methods.have.type
 trait TableDefinitions extends TableMappers {
 
   class UserTable(tag: Tag) extends Table[User](tag, "users") {

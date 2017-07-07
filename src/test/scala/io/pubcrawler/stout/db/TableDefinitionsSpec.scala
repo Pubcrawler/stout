@@ -1,6 +1,7 @@
 package io.pubcrawler.stout.db
 
 
+import com.typesafe.scalalogging.LazyLogging
 import io.pubcrawler.stout.util.JsonFormat
 import org.json4s.jackson.JsonMethods.parse
 import org.scalatest.{FlatSpec, Matchers}
@@ -12,7 +13,7 @@ import scala.concurrent.duration._
 import scala.io.{Codec, Source}
 
 
-class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnection with Matchers with JsonFormat {
+class TableDefinitionsSpec extends FlatSpec with LazyLogging with TableDefinitions with DbConnection with Matchers with JsonFormat {
 
   it should "add users" in {
     val action = DBIO.seq(
@@ -20,6 +21,8 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     )
     try {
       Await.result(db.run(action), 1.second)
+    } catch {
+      case e: Throwable => logger.error("Adding users to database failed", e)
     }
   }
 
@@ -29,6 +32,8 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     )
     try {
       Await.result(db.run(action), 1.second)
+    } catch {
+      case e: Throwable => logger.error("Adding stops to database failed", e)
     }
   }
 
@@ -38,6 +43,8 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     )
     try {
       Await.result(db.run(action), 1.second)
+    } catch {
+      case e: Throwable => logger.error("Adding routes to database failed", e)
     }
   }
 
@@ -47,6 +54,8 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     )
     try {
       Await.result(db.run(action), 1.second)
+    } catch {
+      case e: Throwable => logger.error("Adding crawls to database failed", e)
     }
   }
 
@@ -56,6 +65,8 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     )
     try {
       Await.result(db.run(action), 1.second)
+    } catch {
+      case e: Throwable => logger.error("Adding crawl participants to database failed", e)
     }
   }
 
@@ -65,6 +76,8 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     )
     try {
       Await.result(db.run(action), 1.second)
+    } catch {
+      case e: Throwable => logger.error("Adding routestops to database failed", e)
     }
   }
 
@@ -74,6 +87,8 @@ class TableDefinitionsSpec extends FlatSpec with TableDefinitions with DbConnect
     )
     try {
       Await.result(db.run(action), 1.second)
+    } catch {
+      case e: Throwable => logger.error("Adding wishes to database failed", e)
     }
   }
 

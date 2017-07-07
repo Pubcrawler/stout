@@ -6,8 +6,11 @@ import org.scalatra.servlet.ScalatraListener
 
 
 object JettyLauncher {
+
+  private val DefaultPort = 8080
+
   def main(args: Array[String]) {
-    val port = if(System.getProperty("http.port") != null) System.getProperty("http.port").toInt else 8080
+    val port = Option(System.getProperty("http.port")).map(_.toInt).getOrElse(DefaultPort)
 
     val server = new Server(port)
     val context = new WebAppContext()
