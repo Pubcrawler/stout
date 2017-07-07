@@ -2,6 +2,7 @@ package io.pubcrawler.stout.db
 
 import java.time.{LocalDate, LocalDateTime}
 
+
 /**
   * @param id
   * @param username
@@ -17,7 +18,9 @@ case class User(id: Option[Int], username: String, birthdate: Option[LocalDate],
 
 case class Route(id: Option[Int], ownerId: Int)
 
-case class Crawl(id: Option[Int], title: String, ownerId: Int, routeId: Int, dateTime: LocalDateTime, address: String, city: String, lat: Double, lng: Double, radius: Float, description: String)
+case class Crawl(id: Option[Int], title: String, ownerId: Int, routeId: Int,
+                 dateTime: LocalDateTime, address: String, city: String,
+                 lat: Double, lng: Double, radius: Float, description: String)
 
 /**
   * @param crawlId
@@ -31,6 +34,7 @@ case class CrawlParticipant(crawlId: Int, userId: Int, status: Char)
 
 case class RouteStop(routeId: Int, stopId: Int, order: Int)
 
-case class Stop(id: Option[Int], title: String, address: String, city: String, lat: Double, lng: Double)
+case class Stop(id: Option[Int], title: String, address: String, city: String,
+                lat: Double, lng: Double)
 
 case class Wish(userId: Int, stopId: Int)

@@ -2,7 +2,7 @@ version: 2
 executorType: docker
 
 containerInfo:
-  - image: 1science/sbt:latest
+  - image: ubuntu:zesty
   - image: postgres:latest
     env:
       - POSTGRES_DB=stout
@@ -16,12 +16,19 @@ stages:
     workDir: ~/stout
     steps:
       - type: shell
-        name: Installing dependencies
-        command: |
-          apk update &&
-          apk add git openssh
+        name: Install base dependencies
+        command: apt-get update && apt-get -y install git wget openjdk-8-jdk curl
 
       - checkout
+
+      # Setup environment with sbt and heroku
+      - type: shell
+        name: Setup environment with SBT and Heroku
+        command: source .circleci/setup-environment.sh
+
+      - type: shell
+        name: Style check
+        command: sbt scalastyle
 
       - type: shell
         name: Database migrations
@@ -30,3 +37,17 @@ stages:
       - type: shell
         name: Tests
         command: sbt test:test
+
+      - add_ssh_keys:
+          name: Add deployment Heroku deployment key to known hosts
+          fingerprints:
+            - "48:a0:87:54:ca:75:32:12:c6:9e:a2:77:a4:7a:08:a4"
+
+      - deploy:
+          name: Deploy master to Heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku ${CIRCLE_BRANCH}:master
+              heroku run sbt flywayMigrate
+              heroku restart
+            fi
